@@ -1,0 +1,43 @@
+﻿@model Web.Models.CustomerMessage
+<div id="loader" style="display:none;font-size:20px;font-weight:bold;color:#D3ACCC;">
+    loading...
+</div>
+<div id="message-content">
+    @if (!String.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div class="bs-callout bs-callout-success">
+            <h4>Success!</h4>
+            @ViewBag.SuccessMessage
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-6">
+            @using (@Ajax.BeginForm("send-message", new AjaxOptions()
+            {
+                OnSuccess = "SendMessageAjaxSuccess",
+                OnFailure = "SendMessageAjaxFailure",
+                HttpMethod = "POST",
+                UpdateTargetId = "message-content",
+                LoadingElementId = "loader"
+            }))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Message)
+                    @Html.TextAreaFor(m => m.Message, new { @class = "form-control", rows = 6 })
+                    @Html.ValidationMessageFor(m => m.Message)
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            }
+        </div>
+    </div>
+</div>

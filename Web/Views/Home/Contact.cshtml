@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+@Html.Partial("Message", new Web.Models.CustomerMessage() { })
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/jquery.unobtrusive-ajax.js", "~/Scripts/leftlobed-validation.js", "~/Scripts/leftlobed-message.js")
+}
